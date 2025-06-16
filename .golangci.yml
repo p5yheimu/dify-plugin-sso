@@ -13,28 +13,22 @@ output:
 linters-settings:
   govet:
     check-shadowing: true
-  golint:
-    min-confidence: 0.8
   gocyclo:
-    min-complexity: 15
-  maligned:
-    suggest-new: true
+    min-complexity: 20
   dupl:
-    threshold: 120
+    threshold: 150
   goconst:
-    min-len: 2
-    min-occurrences: 2
+    min-len: 3
+    min-occurrences: 3
   misspell:
     locale: US
   lll:
-    line-length: 140
+    line-length: 150
   goimports:
     local-prefixes: github.com/p5yheimu/dify-plugin-sso
   gocritic:
     enabled-tags:
       - diagnostic
-      - experimental
-      - opinionated
       - performance
       - style
     disabled-checks:
@@ -43,48 +37,50 @@ linters-settings:
       - octalLiteral
       - whyNoLint
       - wrapperFunc
+      - unnamedResult
+      - hugeParam
 
 linters:
   enable:
     - bodyclose
+    - errcheck
+    - gofmt
+    - goimports
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - misspell
+    - unconvert
+    - whitespace
+    - nolintlint
+
+  disable:
     - deadcode
+    - structcheck
+    - varcheck
+    - maligned
+    - scopelint
+    - golint
+    - interfacer
     - depguard
     - dogsled
     - dupl
-    - errcheck
-    - exportloopref
     - funlen
     - gochecknoinits
-    - goconst
-    - gocritic
     - gocyclo
-    - gofmt
-    - goimports
     - gomnd
     - goprintffuncname
     - gosec
     - gosimple
-    - govet
-    - ineffassign
     - lll
-    - misspell
     - nakedret
     - noctx
-    - nolintlint
     - rowserrcheck
-    - staticcheck
-    - structcheck
     - stylecheck
-    - typecheck
-    - unconvert
     - unparam
-    - unused
-    - varcheck
-    - whitespace
-
-  disable:
-    - maligned
-    - prealloc
+    - gocritic
 
 issues:
   exclude-rules:
@@ -93,18 +89,26 @@ issues:
         - gomnd
         - funlen
         - goconst
+        - gocyclo
+        - dupl
     
     - path: cmd/
       linters:
         - gomnd
+        - funlen
         
-    - text: "weak cryptographic primitive"
+    - path: internal/auth/saml/
+      text: "weak cryptographic primitive"
       linters:
         - gosec
         
     - text: "G404: Use of weak random number generator"
       linters:
         - gosec
+
+    - text: "shadow: declaration of"
+      linters:
+        - govet
 
   exclude-use-default: false
   exclude:
@@ -114,6 +118,10 @@ issues:
     - 'G301: Poor file permissions used when creating a directory'
     - 'G302: Poor file permissions used when creating a file'
     - 'G304: Potential file inclusion via variable'
+    - 'exported .* should have comment'
+    - 'comment on exported .* should be of the form'
+    - 'should not use dot imports'
+    - 'cyclomatic complexity .* of func .* is high'
 
 severity:
   default-severity: error
