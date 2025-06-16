@@ -1,7 +1,6 @@
 package saml
 
 import (
-	"context"
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"

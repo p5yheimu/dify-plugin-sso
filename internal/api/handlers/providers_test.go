@@ -11,6 +11,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/p5yheimu/dify-plugin-sso/internal/auth/saml"
 	"github.com/p5yheimu/dify-plugin-sso/internal/models"
 )
 
@@ -48,6 +49,14 @@ func (m *MockProviderService) UpdateProvider(providerID uuid.UUID, name *string,
 func (m *MockProviderService) DeleteProvider(providerID uuid.UUID) (bool, error) {
 	args := m.Called(providerID)
 	return args.Bool(0), args.Error(1)
+}
+
+func (m *MockProviderService) GetSAMLAuthenticator(providerID uuid.UUID) (*saml.Authenticator, error) {
+	args := m.Called(providerID)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).(*saml.Authenticator), args.Error(1)
 }
 
 func TestCreateProvider(t *testing.T) {

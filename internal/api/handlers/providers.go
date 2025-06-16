@@ -11,12 +11,12 @@ import (
 
 // ProviderHandler プロバイダー管理APIハンドラー
 type ProviderHandler struct {
-	service *service.ProviderService
+	service service.ProviderServiceInterface
 	logger  *logrus.Logger
 }
 
 // NewProviderHandler 新しいProviderHandlerを作成
-func NewProviderHandler(service *service.ProviderService) *ProviderHandler {
+func NewProviderHandler(service service.ProviderServiceInterface) *ProviderHandler {
 	return &ProviderHandler{
 		service: service,
 		logger:  logrus.New(),

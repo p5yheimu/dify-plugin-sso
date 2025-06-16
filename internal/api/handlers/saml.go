@@ -11,12 +11,12 @@ import (
 
 // SAMLHandler SAML認証APIハンドラー
 type SAMLHandler struct {
-	providerService *service.ProviderService
+	providerService service.ProviderServiceInterface
 	logger          *logrus.Logger
 }
 
 // NewSAMLHandler 新しいSAMLHandlerを作成
-func NewSAMLHandler(providerService *service.ProviderService) *SAMLHandler {
+func NewSAMLHandler(providerService service.ProviderServiceInterface) *SAMLHandler {
 	return &SAMLHandler{
 		providerService: providerService,
 		logger:          logrus.New(),
