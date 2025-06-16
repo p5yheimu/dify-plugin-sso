@@ -1,0 +1,37 @@
+{
+    "go.useLanguageServer": true,
+    "go.lintTool": "golangci-lint",
+    "go.lintOnSave": "package",
+    "go.vetOnSave": "package",
+    "go.formatTool": "goimports",
+    "go.buildOnSave": "off",
+    "go.testFlags": ["-v", "-race"],
+    "go.coverOnSave": false,
+    "go.coverOnSingleTest": true,
+    "go.coverageDecorator": {
+        "type": "gutter",
+        "coveredHighlightColor": "rgba(64,128,64,0.5)",
+        "uncoveredHighlightColor": "rgba(128,64,64,0.25)"
+    },
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on",
+        "GOPROXY": "https://proxy.golang.org,direct"
+    },
+    "files.associations": {
+        "*.yml": "yaml",
+        "*.yaml": "yaml",
+        "Dockerfile*": "dockerfile",
+        "*.md": "markdown"
+    },
+    "files.exclude": {
+        "**/bin": true,
+        "**/.git": true,
+        "**/node_modules": true,
+        "coverage.out": true,
+        "coverage.html": true
+    },
+    "terminal.integrated.env.linux": {
+        "DATABASE_URL": "postgres://postgres:postgres@localhost:5432/dify_sso_dev?sslmode=disable",
+        "DEBUG": "true"
+    }
+} 

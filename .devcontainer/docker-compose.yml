@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/go:1.21-bullseye
+    volumes:
+      - ../..:/workspaces:cached
+      - go-cache:/go/pkg/mod
+    command: sleep infinity
+    network_mode: service:postgres
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@localhost:5432/dify_sso_dev?sslmode=disable
+      - DEBUG=true
+      - GO111MODULE=on
+
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres  
+      POSTGRES_DB: dify_sso_dev
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres-data:
+  go-cache: 
